@@ -1,46 +1,41 @@
-
-import java.util.Scanner;
+import java.util.Stack;
 
 public class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC4.
+     * Application entry point for UC5.
      *
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
 
-        Scanner sc = new Scanner(System.in);
+        // Declare and initialize the input string
+        String input = "noon";
 
-        System.out.print("Enter a string: ");
-        String input = sc.nextLine();
+        // Create a Stack to store characters
+        Stack<Character> stack = new Stack<>();
 
-        // Convert string to character array
-        char[] characters = input.toCharArray();
+        // Push each character of the string into the stack
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
 
-        int start = 0;
-        int end = characters.length - 1;
-
+        // Assume palindrome initially
         boolean isPalindrome = true;
 
-        // Two-pointer comparison
-        while (start < end) {
-            if (characters[start] != characters[end]) {
+        // Iterate again through original string
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 isPalindrome = false;
                 break;
             }
-            start++;
-            end--;
         }
 
         // Display result
         if (isPalindrome) {
-            System.out.println("The given string is a Palindrome.");
+            System.out.println(input + " is a Palindrome.");
         } else {
-            System.out.println("The given string is NOT a Palindrome.");
+            System.out.println(input + " is NOT a Palindrome.");
         }
-
-        sc.close();
-
     }
 }
