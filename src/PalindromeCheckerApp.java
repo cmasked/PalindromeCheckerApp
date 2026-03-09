@@ -3,43 +3,42 @@ import java.util.*;
 public class PalindromeCheckerApp {
 
     /**
-     * Application entry point for UC6.
+     * Application entry point for UC7.
      *
      * @param args Command-line arguments
      */
     public static void main(String[] args) {
 
-        // Declare and initialize input string
-        String input = "level";
+        // Declare input string
+        String input = "racecar";
 
-        // Create Queue and Stack
-        Queue<Character> queue = new LinkedList<>();
-        Stack<Character> stack = new Stack<>();
+        // Create Deque
+        Deque<Character> deque = new ArrayDeque<>();
 
-        // Insert characters into both structures
-        for (char c : input.toCharArray()) {
-            queue.add(c);   // enqueue
-            stack.push(c);  // push
+        // Insert characters into deque
+        for(char c : input.toCharArray()){
+            deque.addLast(c);
         }
 
         boolean isPalindrome = true;
 
-        // Compare dequeue and pop
-        while (!queue.isEmpty()) {
+        // Compare front and rear
+        while(deque.size() > 1){
 
-            char fromQueue = queue.remove(); // dequeue
-            char fromStack = stack.pop();    // pop
+            char first = deque.removeFirst();
+            char last = deque.removeLast();
 
-            if (fromQueue != fromStack) {
+            if(first != last){
                 isPalindrome = false;
                 break;
             }
         }
 
         // Display result
-        if (isPalindrome) {
+        if(isPalindrome){
             System.out.println(input + " is a Palindrome.");
-        } else {
+        }
+        else{
             System.out.println(input + " is NOT a Palindrome.");
         }
     }
