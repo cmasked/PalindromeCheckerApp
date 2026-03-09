@@ -2,43 +2,76 @@ import java.util.*;
 
 public class PalindromeCheckerApp {
 
-    /**
-     * Application entry point for UC7.
-     *
-     * @param args Command-line arguments
-     */
+    // Node class for Singly Linked List
+    static class Node {
+        char data;
+        Node next;
+
+        Node(char data) {
+            this.data = data;
+            this.next = null;
+        }
+    }
+
     public static void main(String[] args) {
 
-        // Declare input string
-        String input = "racecar";
+        String input = "madam";
 
-        // Create Deque
-        Deque<Character> deque = new ArrayDeque<>();
+        // Convert string to linked list
+        Node head = null;
+        Node tail = null;
 
-        // Insert characters into deque
-        for(char c : input.toCharArray()){
-            deque.addLast(c);
-        }
+        for (char c : input.toCharArray()) {
+            Node newNode = new Node(c);
 
-        boolean isPalindrome = true;
-
-        // Compare front and rear
-        while(deque.size() > 1){
-
-            char first = deque.removeFirst();
-            char last = deque.removeLast();
-
-            if(first != last){
-                isPalindrome = false;
-                break;
+            if (head == null) {
+                head = newNode;
+                tail = newNode;
+            } else {
+                tail.next = newNode;
+                tail = newNode;
             }
         }
 
-        // Display result
-        if(isPalindrome){
-            System.out.println(input + " is a Palindrome.");
+        // Find middle using fast & slow pointer
+        Node slow = head;
+        Node fast = head;
+
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
         }
-        else{
+
+        // Reverse second half
+        Node prev = null;
+        Node current = slow;
+
+        while (current != null) {
+            Node next = current.next;
+            current.next = prev;
+            prev = current;
+            current = next;
+        }
+
+        // Compare halves
+        Node firstHalf = head;
+        Node secondHalf = prev;
+
+        boolean isPalindrome = true;
+
+        while (secondHalf != null) {
+            if (firstHalf.data != secondHalf.data) {
+                isPalindrome = false;
+                break;
+            }
+            firstHalf = firstHalf.next;
+            secondHalf = secondHalf.next;
+        }
+
+        // Display result
+        if (isPalindrome) {
+            System.out.println(input + " is a Palindrome.");
+        } else {
             System.out.println(input + " is NOT a Palindrome.");
         }
     }
