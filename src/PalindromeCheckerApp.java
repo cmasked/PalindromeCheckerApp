@@ -1,19 +1,46 @@
+
+import java.util.Scanner;
+
 public class PalindromeCheckerApp {
 
+    /**
+     * Application entry point for UC4.
+     *
+     * @param args Command-line arguments
+     */
     public static void main(String[] args) {
 
-        // UC3: Reverse-based palindrome check
-        String input = "madam";
-        String reversed = "";
+        Scanner sc = new Scanner(System.in);
 
-        for (int i = input.length() - 1; i >= 0; i--) {
-            reversed = reversed + input.charAt(i);
+        System.out.print("Enter a string: ");
+        String input = sc.nextLine();
+
+        // Convert string to character array
+        char[] characters = input.toCharArray();
+
+        int start = 0;
+        int end = characters.length - 1;
+
+        boolean isPalindrome = true;
+
+        // Two-pointer comparison
+        while (start < end) {
+            if (characters[start] != characters[end]) {
+                isPalindrome = false;
+                break;
+            }
+            start++;
+            end--;
         }
 
-        if (input.equals(reversed)) {
-            System.out.println("Palindrome");
+        // Display result
+        if (isPalindrome) {
+            System.out.println("The given string is a Palindrome.");
         } else {
-            System.out.println("Not a Palindrome");
+            System.out.println("The given string is NOT a Palindrome.");
         }
+
+        sc.close();
+
     }
 }
